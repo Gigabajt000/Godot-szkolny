@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbrpslafumqtk"]
+[gd_scene load_steps=7 format=3 uid="uid://dbrpslafumqtk"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_ie0y2"]
 [ext_resource type="PackedScene" uid="uid://c581u8slmygld" path="res://win_screen.tscn" id="1_p7fmq"]
 [ext_resource type="Texture2D" uid="uid://cefnw4d3j3ct7" path="res://icon.svg" id="2_5btdq"]
+[ext_resource type="Script" path="res://painter.gd" id="3_l03cv"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wt4l3"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yhp02"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_wt4l3")
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("source", "target", "label")]
 script = ExtResource("1_ie0y2")
@@ -32,8 +40,9 @@ stretch_mode = 4
 [node name="Target" type="TextureRect" parent="DrawingLayer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("2_5btdq")
+texture = SubResource("NoiseTexture2D_yhp02")
 stretch_mode = 4
+script = ExtResource("3_l03cv")
 
 [node name="Button" type="Button" parent="DrawingLayer/VBoxContainer"]
 layout_mode = 2
