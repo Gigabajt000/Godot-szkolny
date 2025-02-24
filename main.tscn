@@ -1,9 +1,50 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbrpslafumqtk"]
+[gd_scene load_steps=4 format=3 uid="uid://dbrpslafumqtk"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_ie0y2"]
 [ext_resource type="PackedScene" uid="uid://c581u8slmygld" path="res://win_screen.tscn" id="1_p7fmq"]
+[ext_resource type="Texture2D" uid="uid://cefnw4d3j3ct7" path="res://icon.svg" id="2_5btdq"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("source", "target", "label")]
+script = ExtResource("1_ie0y2")
+source = NodePath("DrawingLayer/VBoxContainer/HBoxContainer/Source")
+target = NodePath("DrawingLayer/VBoxContainer/HBoxContainer/Target")
+label = NodePath("DrawingLayer/VBoxContainer/Label")
+
+[node name="DrawingLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DrawingLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DrawingLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Source" type="TextureRect" parent="DrawingLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_5btdq")
+stretch_mode = 4
+
+[node name="Target" type="TextureRect" parent="DrawingLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_5btdq")
+stretch_mode = 4
+
+[node name="Button" type="Button" parent="DrawingLayer/VBoxContainer"]
+layout_mode = 2
+text = "Compare"
+
+[node name="Label" type="Label" parent="DrawingLayer/VBoxContainer"]
+layout_mode = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Win Screen" parent="CanvasLayer" instance=ExtResource("1_p7fmq")]
+
+[connection signal="pressed" from="DrawingLayer/VBoxContainer/Button" to="." method="_on_button_pressed"]
